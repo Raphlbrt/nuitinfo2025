@@ -20,6 +20,8 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
+          timeout: 60s
+          command_timeout: 30m
           script: |
             cd /var/www/nuitinfo2025
             
@@ -32,5 +34,5 @@ jobs:
             git fetch origin
             git reset --hard origin/main
             
-            # Correction des permissions
-            chown -R www-data:www-data /var/www/nuitinfo2025
+            # Correction des permissions avec sudo
+            sudo chown -R www-data:www-data /var/www/nuitinfo2025
