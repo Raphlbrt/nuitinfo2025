@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>NIRD Quiz – Obsolescence programmée</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="deg-0">
+<header class="main-header">
+    <div class="logo">NIRD<span>Quiz</span></div>
+    <p class="subtitle">
+        Chaque bonne réponse protège le numérique.<br>
+        Chaque erreur accélère son obsolescence…
+    </p>
+</header>
+
+<main class="main-layout">
+    <section class="question-panel">
+        <div id="question-number" class="question-number">Question 1</div>
+        <h1 id="question-text" class="question-text">
+            Chargement de la question...
+        </h1>
+
+        <div class="wheel-container">
+            <div class="wheel-title">Choisis ta réponse</div>
+            <div class="wheel">
+                <button class="segment seg1" data-index="0">Réponse A</button>
+                <button class="segment seg2" data-index="1">Réponse B</button>
+                <button class="segment seg3" data-index="2">Réponse C</button>
+                <button class="segment seg4" data-index="3">Réponse D</button>
+            </div>
+        </div>
+
+        <div id="feedback" class="feedback"></div>
+    </section>
+
+    <aside class="status-panel">
+        <h2>État du système</h2>
+        <div class="health-bar-wrapper">
+            <div id="health-bar" class="health-bar"></div>
+        </div>
+        <p id="health-text" class="health-text">
+            Santé du système : 100% – expérience fluide.
+        </p>
+
+        <div class="explanation">
+            <h3>Ce que tu vis</h3>
+            <p id="deg-explanation">
+                Pour l’instant, tout est propre : comme un équipement bien entretenu et accessible à tous.
+            </p>
+        </div>
+    </aside>
+</main>
+
+<div id="end-screen" class="end-screen hidden">
+    <div class="end-card">
+        <h2>Fin du parcours</h2>
+        <p id="end-message">
+            Merci d’avoir expérimenté l’obsolescence programmée.
+            Découvre maintenant comment NIRD propose un numérique plus durable, inclusif et responsable.
+        </p>
+        <button id="restart-btn" class="restart-btn">Recommencer l’expérience</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
