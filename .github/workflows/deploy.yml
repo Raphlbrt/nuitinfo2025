@@ -22,5 +22,15 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             cd /var/www/nuitinfo2025
-            git pull origin main || git clone ${{ secrets.REPO_URL }} .
+            
+            # Premier déploiement : clone le repo
+            if [ ! -d ".git" ]; then
+              git clone https://github.com/${{ github.repository }}.git .
+            fi
+            
+            # Déploiements suivants : pull les changements
+            git fetch origin
+            git reset --hard origin/main
+            
+            # Correction des permissions
             chown -R www-data:www-data /var/www/nuitinfo2025
