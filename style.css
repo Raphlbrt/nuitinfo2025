@@ -272,26 +272,130 @@ body.deg-0 {
     filter: none;
 }
 
-/* Niveau 1 : couleurs ternes, légère baisse de contraste */
+/* 1 : change le fond (plus agressif / désagréable) */
 body.deg-1 {
-    filter: saturate(0.8) contrast(0.95);
+    background: radial-gradient(circle at top, #1f2933, #000000);
 }
 
-/* Niveau 2 : plus sombre, plus flou, curseur modifié */
-body.deg-2 {
-    filter: saturate(0.7) contrast(0.9) blur(0.4px);
+/* 2 : le texte dépasse des bulles (segments) */
+body.deg-2 .segment {
+    white-space: nowrap;
+    font-size: 1.05rem;
+    padding: 0.2rem;
+}
+
+/* 3 : style texte "cassé" (les accents → @ seront gérés en JS) */
+body.deg-3 {
+    font-family: "Courier New", monospace;
+}
+
+body.deg-3 .question-text,
+body.deg-3 .segment,
+body.deg-3 .subtitle {
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+/* 4 : curseur perturbé visuellement (clic inversé géré côté JS) */
+body.deg-4 {
     cursor: crosshair;
 }
 
-/* Niveau 3 : vraiment pénible visuellement */
-body.deg-3 {
-    filter: grayscale(0.6) contrast(0.85) blur(0.8px);
-    cursor: not-allowed;
+body.deg-4 .wheel {
+    transform: rotate(8deg);
 }
 
-/* Texte "cassé" niveau 3 (tu pourras plus tard remplacer dynamiquement) */
-body.deg-3 .question-text {
-    letter-spacing: 0.08em;
+body.deg-4 .segment {
+    transition: transform 0.05s ease-out;
+}
+
+/* 5 : la roue est déstructurée (segments mal placés) */
+body.deg-5 .wheel {
+    box-shadow: none;
+    background: #020617;
+}
+
+body.deg-5 .seg1 {
+    top: 15%;
+    left: 10%;
+    transform: none;
+}
+
+body.deg-5 .seg2 {
+    top: 75%;
+    left: 80%;
+    transform: none;
+}
+
+body.deg-5 .seg3 {
+    top: 60%;
+    left: 15%;
+    transform: none;
+}
+
+body.deg-5 .seg4 {
+    top: 10%;
+    left: 70%;
+    transform: none;
+}
+
+/* 6 : "désactive" le design moderne (look brut) */
+body.deg-6 {
+    background: #ffffff;
+    color: #000000;
+}
+
+body.deg-6 .main-layout {
+    display: block;
+    padding: 0.5rem;
+}
+
+body.deg-6 .status-panel,
+body.deg-6 .wheel,
+body.deg-6 .end-card {
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    border: 1px solid #000000;
+}
+
+body.deg-6 .segment {
+    border-radius: 0;
+    width: auto;
+    height: auto;
+    display: inline-block;
+    margin: 0.25rem;
+}
+
+/* 7 : espaces exagérés entre les lettres */
+body.deg-7 .question-text,
+body.deg-7 .segment,
+body.deg-7 .subtitle,
+body.deg-7 .logo {
+    letter-spacing: 0.2em;
+}
+
+/* 8 : souris inversée (visuellement : vrai curseur caché + faux curseur) */
+body.deg-8,
+body.deg-9 {
+    cursor: none;
+}
+
+/* 9 : site inutilisable (overlay bloquant) */
+body.deg-9::before {
+    content: "Erreur critique : système obsolète. Expérience inutilisable.";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.92);
+    color: #f97316;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.3rem;
+    z-index: 9998;
+    pointer-events: all;
 }
 
 /* RESPONSIVE SIMPLE */
@@ -318,4 +422,24 @@ body.deg-3 .question-text {
     .seg2 { transform: translate(-50%, -50%) translate(90px, 0); }
     .seg3 { transform: translate(-50%, -50%) translate(0, 90px); }
     .seg4 { transform: translate(-50%, -50%) translate(-90px, 0); }
+}
+
+/* Faux curseur (pour niveaux 8 et 9, à gérer en JS) */
+#fake-cursor {
+    position: fixed;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid #f97316;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+/* On rend le faux curseur visible à partir du niveau 8 */
+body.deg-8 #fake-cursor,
+body.deg-9 #fake-cursor {
+    opacity: 1;
 }
