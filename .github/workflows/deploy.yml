@@ -25,14 +25,17 @@ jobs:
           script: |
             cd /var/www/nuitinfo2025
             
-            # Premier déploiement : clone le repo
+            # Correction Git "dubious ownership"
+            git config --global --add safe.directory /var/www/nuitinfo2025
+            
+            # Premier déploiement : clone le repo si nécessaire
             if [ ! -d ".git" ]; then
               git clone https://github.com/${{ github.repository }}.git .
             fi
             
-            # Déploiements suivants : pull les changements
+            # Déploiements suivants : mise à jour forcée depuis main
             git fetch origin
             git reset --hard origin/main
             
-            # Correction des permissions avec sudo
+            # Correction des permissions
             sudo chown -R www-data:www-data /var/www/nuitinfo2025
