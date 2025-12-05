@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIRD Quiz – Obsolescence programmée</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="degradations-newdesign.css">
+</head>
+<body>
+
+<!-- PAGE D'ACCUEIL INTERACTIVE -->
+<div id="start-screen" class="start-screen">
+    <div class="start-content">
+        <div class="title-container">
+            <h1 class="animated-title">
+                <span class="char" data-char="N">N</span>
+                <span class="char" data-char="I">I</span>
+                <span class="char" data-char="R">R</span>
+                <span class="char" data-char="D">D</span>
+            </h1>
+            <h2 class="subtitle-animated">Quiz</h2>
+        </div>
+
+        <div class="intro-text">
+            <p class="intro-line">Testez vos connaissances sur le numérique responsable</p>
+            <p class="warning-text">
+                <span class="warning-icon">⚠</span>
+                Attention : Chaque mauvaise réponse dégradera progressivement votre expérience
+            </p>
+        </div>
+
+        <div class="start-indicator">
+            <div class="click-text">Cliquez n'importe où pour commencer</div>
+            <div class="pulse-ring"></div>
+        </div>
+    </div>
+
+    <div class="floating-hexagons">
+        <div class="hex hex-1"></div>
+        <div class="hex hex-2"></div>
+        <div class="hex hex-3"></div>
+        <div class="hex hex-4"></div>
+        <div class="hex hex-5"></div>
+    </div>
+</div>
+
+<!-- Fond interactif avec grille -->
+<div class="interactive-background">
+    <canvas id="interactive-canvas"></canvas>
+</div>
+
+<!-- QUIZ PRINCIPAL (masqué au départ) -->
+<div id="quiz-container" class="quiz-container hidden">
+    <header class="main-header">
+        <div class="logo">NIRD<span>Quiz</span></div>
+        <p class="subtitle">
+            Chaque bonne réponse protège le numérique.<br>
+            Chaque erreur accélère son obsolescence…
+        </p>
+    </header>
+
+    <main class="main-layout">
+        <section class="question-panel">
+            <div id="question-number" class="question-number">Question 1</div>
+            <h1 id="question-text" class="question-text">
+                Chargement de la question...
+            </h1>
+
+            <div class="wheel-container">
+                <div class="wheel-title">Sélectionnez votre réponse</div>
+                <div class="wheel">
+                    <!-- Cercle central -->
+                    <div class="center-circle">
+                        <div class="center-icon">?</div>
+                    </div>
+
+                    <!-- Ligne horizontale -->
+                    <div class="divider horizontal"></div>
+                    <!-- Ligne verticale -->
+                    <div class="divider vertical"></div>
+
+                    <!-- 4 segments cliquables -->
+                    <button class="segment top" data-index="0">
+                        <span class="segment-letter">A</span>
+                        <span class="segment-text">Réponse A</span>
+                    </button>
+                    <button class="segment right" data-index="1">
+                        <span class="segment-letter">B</span>
+                        <span class="segment-text">Réponse B</span>
+                    </button>
+                    <button class="segment bottom" data-index="2">
+                        <span class="segment-letter">C</span>
+                        <span class="segment-text">Réponse C</span>
+                    </button>
+                    <button class="segment left" data-index="3">
+                        <span class="segment-letter">D</span>
+                        <span class="segment-text">Réponse D</span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="feedback" class="feedback"></div>
+        </section>
+
+        <aside class="status-panel">
+            <h2>État du système</h2>
+            <div class="health-bar-wrapper">
+                <div id="health-bar" class="health-bar"></div>
+            </div>
+            <p id="health-text" class="health-text">
+                Santé du système : 100% – expérience fluide.
+            </p>
+
+            <div class="degradation-counter">
+                <span class="counter-label">Dégradations actives :</span>
+                <span id="deg-counter" class="counter-value">0</span>
+            </div>
+
+            <div class="explanation">
+                <h3>Ce que tu vis</h3>
+                <p id="deg-explanation">
+                    Pour l'instant, tout est propre : comme un équipement bien entretenu et accessible à tous.
+                </p>
+            </div>
+        </aside>
+    </main>
+
+    <div id="end-screen" class="end-screen hidden">
+        <div class="end-card">
+            <h2>Fin du parcours</h2>
+            <p id="end-message">
+                Merci d'avoir expérimenté l'obsolescence programmée.
+                Découvre maintenant comment NIRD propose un numérique plus durable, inclusif et responsable.
+            </p>
+
+            <div class="end-stats">
+                <div class="stat">
+                    <span class="stat-label">Questions répondues</span>
+                    <span id="total-questions" class="stat-value">7</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Dégradations subies</span>
+                    <span id="total-degradations" class="stat-value">0</span>
+                </div>
+            </div>
+
+            <div class="end-actions">
+                <button id="restart-btn" class="restart-btn">Recommencer l'expérience</button>
+                <a href="https://nird.forge.apps.education.fr/" target="_blank" class="learn-more-btn">
+                    En savoir plus sur NIRD
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- FIN QUIZ CONTAINER -->
+
+<!-- FAUSSE PAGE 404 CHROME -->
+<div id="chrome-404" class="chrome-404 hidden">
+    <div class="error-content">
+        <div class="icon">
+            <svg width="120" height="120" viewBox="0 0 120 120">
+                <circle cx="60" cy="60" r="50" fill="none" stroke="#9CA3AF" stroke-width="2"/>
+                <line x1="40" y1="50" x2="50" y2="50" stroke="#9CA3AF" stroke-width="3" stroke-linecap="round"/>
+                <line x1="70" y1="50" x2="80" y2="50" stroke="#9CA3AF" stroke-width="3" stroke-linecap="round"/>
+                <path d="M 40 75 Q 60 65 80 75" stroke="#9CA3AF" stroke-width="3" fill="none" stroke-linecap="round"/>
+            </svg>
+        </div>
+        <h1 class="error-code">Site inaccessible</h1>
+        <p class="error-message" id="custom-error-message">
+            L'obsolescence a rendu ce site complètement inutilisable.
+        </p>
+        <p class="error-details">
+            ERR_OBSOLESCENCE_PROGRAMMEE
+        </p>
+        <div class="error-suggestions">
+            <p><strong>Peut-être devriez-vous :</strong></p>
+            <ul>
+                <li>Adopter une démarche NIRD pour éviter ce genre de problèmes</li>
+                <li>Utiliser du matériel reconditionné et des logiciels libres</li>
+                <li>Promouvoir un numérique responsable et durable</li>
+            </ul>
+        </div>
+        <button id="restart-from-404" class="retry-button">Recommencer l'expérience</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
